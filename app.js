@@ -8,12 +8,10 @@ buttons.forEach((button) => {
   button.addEventListener("click", () => handleButtonClick(button.innerText));
 });
 
-//버튼 클릭
 function handleButtonClick(value) {
   if (value === "AC") {
     resetCalculator();
   } else if (value === "=") {
-    // 계산 보여주기
     try {
       const result = calculateExpression(userExpression);
       expressionElement.innerText = userExpression;
@@ -30,14 +28,21 @@ function handleButtonClick(value) {
   }
 }
 
-//계산기 초기화
 function resetCalculator() {
   userExpression = "";
   expressionElement.innerText = "";
   resultElement.innerText = "0";
 }
 
-// 수식 계산
+function backSpace() {
+    if (resultElement.innerText && userExpression === "") {
+      userExpression = resultElement.innerText;
+      resultElement.innerText = "";
+    }
+    userExpression = userExpression.slice(0, -1);
+    expressionElement.innerText = userExpression;
+  }
+
 function calculateExpression(expression) {
   const operators = expression.match(/[+\-x/÷]/g);
   const operands = expression.split(/[+\-x/÷]/).map(Number);
@@ -50,7 +55,6 @@ function calculateExpression(expression) {
   return priorityExpression(operators, operands, "first");
 }
 
-// 수식 우선순위
 function priorityExpression(operators, operands, stage) {
   switch (stage) {
     case "first":
@@ -82,13 +86,5 @@ function priorityExpression(operators, operands, stage) {
   }
 }
 
-//한칸 뒤로가기
-function backSpace() {
-  if (resultElement.innerText && userExpression === "") {
-    userExpression = resultElement.innerText;
-    resultElement.innerText = "";
-  }
-  userExpression = userExpression.slice(0, -1);
-  expressionElement.innerText = userExpression;
-}
+
 resetCalculator();
