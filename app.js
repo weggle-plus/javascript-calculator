@@ -3,57 +3,53 @@ const resultElement = document.querySelector(".result");
 const buttons = document.querySelectorAll(".button");
 
 let userExpression = "";
+const keyMap = {
+  "*": "x",
+  "/": "/",
+  Enter: "=",
+  Backspace: "<",
+  Escape: "AC",
+};
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => handleButtonClick(button.innerText));
 });
 
-document.addEventListener("keydown", (event) => handleKeyPress(event.key));
+document.addEventListener("keydown", (e) => {
+  const input = keyMap[e.key] || e.key;
+  handleButtonInput(input);
+});
 
-function handleKeyPress(key) {
-  const keys = [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "+",
-    "-",
-    "/",
-    "*",
-    "=",
-    "Escape",
-    "Enter",
-    "Backspace",
-  ];
-  if (keys.includes(key) || key === "Enter" || key === "Backspace") {
-    if (key === "Escape") {
-      resetCalculator();
-    } else if (key === "Enter") {
-      try {
-        const result = calculateExpression(userExpression);
-        expressionElement.innerText = userExpression;
-        resultElement.innerText = result;
-      } catch (err) {
-        alert(err, "올바르지 않은 표현식 입니다.");
-        userExpression = "";
-      }
-    } else if (key === "Backspace") {
-      backSpace();
-    } else {
-      if (key === "*") {
-        key = "x";
-      }
-      userExpression += key;
-      expressionElement.innerText = userExpression;
-    }
+function handleButtonInput(value) {
+  const keys = /^[0-9+\-x/*]$/;
+
+  if (value === "AC") {
+    resetCalculator();
+  } else if (value === "=") {
+    calculateAndResult();
+  } else if (value === "<") {
+    backSpace();
+  } else if (keys.test(value)) {
+    userExpression += value;
+    updateView();
   }
 }
+
+function updateView() {
+  expressionElement.innerText = userExpression;
+}
+
+function calculateAndResult() {
+  try {
+    const result = calculateExpression(userExpression);
+    expressionElement.innerText = userExpression;
+    resultElement.innerText = result;
+  } catch (err) {
+    alert("올바르지 않은 표현식입니다.");
+    userExpression = "";
+  }
+}
+
 function handleButtonClick(value) {
   if (value === "AC") {
     resetCalculator();
@@ -74,7 +70,6 @@ function handleButtonClick(value) {
     expressionElement.innerText = userExpression;
   }
 }
-
 function resetCalculator() {
   userExpression = "";
   expressionElement.innerText = "";
@@ -134,4 +129,4 @@ function priorityExpression(operators, operands, stage) {
 
 resetCalculator();
 
-module.exports = { calculateExpression, priorityExpression };
+module.exports = { calculateExpression };

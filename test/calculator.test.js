@@ -1,13 +1,11 @@
-// const { calculateExpression } = require("../app");
+const { calculateExpression } = require("../app");
 
-// describe("priorityFunction", () => {
-//   it("사칙연산 시 우선순위가 보장된다.", () => {
-//     //given
-//     const expression = "2+3x4/2";
-//     //when
-//     const result = calculateExpression(expression);
+describe("calculateExpression", () => {
+  it("사칙연산 시 우선순위가 보장된다.", () => {
+    const expression = "2+3x4/2";
 
-//     //then
-//     expect(result).toBe(8);
-//   });
-// });
+    const result = calculateExpression(expression);
+
+    expect(result).toBe(8);
+  });
+});
