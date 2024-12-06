@@ -37,12 +37,50 @@ function resetCalculator() {
   resultElement.innerText = "0";
 }
 
-// 수식 초기화
-//수식 업데이트
-
 // 수식 계산
+function calculateExpression(expression) {
+  const operators = expression.match(/[+\-x/÷]/g);
+  const operands = expression.split(/[+\-x/÷]/).map(Number);
+  console.log(operands);
+  console.log(operators);
+
+  if (!operators || !operands || operands.length < 2) {
+    alert("올바르지 않은 표현식 입니다.");
+  }
+  return priorityExpression(operators, operands, "first");
+}
 
 // 수식 우선순위
+function priorityExpression(operators, operands, stage) {
+  switch (stage) {
+    case "first":
+      for (let i = 0; i < operators.length; i++) {
+        if (operators[i] === "x" || operators[i] === "÷") {
+          const result =
+            operators[i] === "x"
+              ? operands[i] * operands[i + 1]
+              : operands[i] / operands[i + 1];
+          operands.splice(i, 2, result);
+          operators.splice(i, 1);
+          return priorityExpression(operators, operands, "first");
+        }
+      }
+      return priorityExpression(operators, operands, "second");
+    case "second":
+      for (let i = 0; i < operators.length; i++) {
+        if (operators[i] === "+" || operators[i] === "-") {
+          const result =
+            operators[i] === "+"
+              ? operands[i] + operands[i + 1]
+              : operands[i] - operands[i + 1];
+          operands.splice(i, 2, result);
+          operators.splice(i, 1);
+          return priorityExpression(operators, operands, "second");
+        }
+      }
+      return operands[0];
+  }
+}
 
 //한칸 뒤로가기
 function backSpace() {
