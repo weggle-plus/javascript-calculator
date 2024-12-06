@@ -3,6 +3,13 @@
   flex-direction: column;
 }
 
+.output {
+  width: 412px;
+  height: 50px;
+  border: 1px solid black;
+  text-align: right;
+}
+
 .item {
   border: 1px solid black;
   flex: 1;
