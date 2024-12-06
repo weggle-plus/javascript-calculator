@@ -1,22 +1,24 @@
-const numBtns = document.querySelectorAll('.num');
-const operBtns = document.querySelectorAll('.oper');
-const res = document.querySelector('.result');
-
+const row = document.querySelectorAll(".row");
+const result = document.querySelector(".result");
+const log = document.querySelector(".log");
+const operator = ["<", "%", "x", "-", "+", ".", "="];
 let equation = "";
 
-numBtns.forEach(function(value){
-    value.addEventListener("click", function(event){
-        equation += event.target.innerHTML;
-        console.log(equation);
-        res.innerHTML = equation;
-    })
-})
+row.forEach(function (item) {
+  item.addEventListener("click", function (event) {
+    let currentValue = event.target.innerText;
+    equation += currentValue;
 
-operBtns.forEach(function(value){
-    value.addEventListener("click", function(event){
-        equation += event.target.innerHTML;
-        console.log(equation);
-        res.innerHTML = equation;
-    })
-})
-
+    if (currentValue === "AC") {
+      equation = "";
+      result.innerText = "";
+      log.innerText = "";
+    } else if (currentValue === "=") {
+      log.innerText = equation.slice(0, -1);
+      result.innerText = "";
+      equation = "";
+    } else {
+      result.innerText = equation;
+    }
+  });
+});
