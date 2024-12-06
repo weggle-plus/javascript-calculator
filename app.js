@@ -16,10 +16,10 @@ function handleButtonClick(value) {
     // 계산 보여주기
     try {
       const result = calculateExpression(userExpression);
-      expressionElement.innerText = result;
-      userExpression = result.toString();
+      expressionElement.innerText = userExpression;
+      resultElement.innerText = result;
     } catch (err) {
-      expressionElement.innerText = "에러";
+      alert(err, "올바르지 않은 표현식 입니다.");
       userExpression = "";
     }
   } else if (value === "<") {
@@ -84,6 +84,10 @@ function priorityExpression(operators, operands, stage) {
 
 //한칸 뒤로가기
 function backSpace() {
+  if (resultElement.innerText && userExpression === "") {
+    userExpression = resultElement.innerText;
+    resultElement.innerText = "";
+  }
   userExpression = userExpression.slice(0, -1);
   expressionElement.innerText = userExpression;
 }
