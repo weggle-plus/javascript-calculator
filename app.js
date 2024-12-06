@@ -72,8 +72,8 @@ function handleButtonClick(value) {
 }
 function resetCalculator() {
   userExpression = "";
-  expressionElement.innerText = "";
-  resultElement.innerText = "0";
+  if (expressionElement) expressionElement.innerText = "";
+  if (resultElement) resultElement.innerText = "0";
 }
 
 function backSpace() {
