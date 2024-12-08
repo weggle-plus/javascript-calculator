@@ -17,6 +17,9 @@ row.forEach(function (item) {
       log.innerText = equation.slice(0, -1);
       result.innerText = "";
       equation = "";
+    } else if (currentValue === "<") {
+      equation = equation.slice(0, -2);
+      result.innerText = equation;
     } else {
       result.innerText = equation;
     }
