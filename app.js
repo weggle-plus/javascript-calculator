@@ -1,7 +1,7 @@
 const row = document.querySelectorAll(".row");
 const result = document.querySelector(".result");
 const log = document.querySelector(".log");
-const operator = ["%", "x", "-", "+"];
+const operator = ["%", "x", "-", "+", "/", "*"];
 let equation = "";
 
 function calculate() {
@@ -51,6 +51,12 @@ row.forEach(function (item) {
       equation = "";
       result.innerText = "";
       log.innerText = "";
+    } else if (operator.includes(currentValue)) {
+      const prev = equation.at(-2);
+      if (operator.includes(prev)) {
+        equation = equation.slice(0, -1);
+      }
+      result.innerText = equation;
     } else if (currentValue === "=") {
       equation = equation.slice(0, -1);
       log.innerText = equation;
