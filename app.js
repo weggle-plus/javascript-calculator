@@ -43,7 +43,7 @@ function calculate() {
   return number[0];
 }
 
-function validateRepeatOper(){
+function validateRepeatOper() {
   const prev = equation.at(-2);
   if (operator.includes(prev)) {
     equation = equation.slice(0, -1);
@@ -51,8 +51,8 @@ function validateRepeatOper(){
   result.innerText = equation;
 }
 
-function validateDot(){
-  if(!hasDot){
+function validateDot() {
+  if (!hasDot) {
     hasDot = true;
     result.innerText = equation;
   } else {
@@ -74,7 +74,11 @@ row.forEach(function (item) {
     } else if (operator.includes(currentValue)) {
       hasDot = false;
       validateRepeatOper();
-    } else if (currentValue === '.'){
+      if (equation.length === 1) {
+        equation = "0" + equation;
+        result.innerText = equation;
+      }
+    } else if (currentValue === ".") {
       validateDot();
     } else if (currentValue === "=") {
       equation = equation.slice(0, -1);
@@ -83,7 +87,7 @@ row.forEach(function (item) {
       equation = "";
       hasDot = false;
     } else if (currentValue === "<") {
-      if(equation.at(-2) === '.'){
+      if (equation.at(-2) === ".") {
         hasDot = false;
       }
       equation = equation.slice(0, -2);
