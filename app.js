@@ -3,6 +3,7 @@ const result = document.querySelector(".result");
 const log = document.querySelector(".log");
 const operator = ["%", "x", "-", "+", "/", "*"];
 let equation = "";
+let hasDot = false;
 
 function calculate() {
   // x, % 먼저 찾고 양 옆 숫자를 찾아 계산한다. -> 대체
@@ -42,6 +43,24 @@ function calculate() {
   return number[0];
 }
 
+function validateRepeatOper(){
+  const prev = equation.at(-2);
+  if (operator.includes(prev)) {
+    equation = equation.slice(0, -1);
+  }
+  result.innerText = equation;
+}
+
+function validateDot(){
+  if(!hasDot){
+    hasDot = true;
+    result.innerText = equation;
+  } else {
+    equation = equation.slice(0, -1);
+    result.innerText = equation;
+  }
+}
+
 row.forEach(function (item) {
   item.addEventListener("click", function (event) {
     let currentValue = event.target.innerText;
@@ -51,18 +70,22 @@ row.forEach(function (item) {
       equation = "";
       result.innerText = "";
       log.innerText = "";
+      hasDot = false;
     } else if (operator.includes(currentValue)) {
-      const prev = equation.at(-2);
-      if (operator.includes(prev)) {
-        equation = equation.slice(0, -1);
-      }
-      result.innerText = equation;
+      hasDot = false;
+      validateRepeatOper();
+    } else if (currentValue === '.'){
+      validateDot();
     } else if (currentValue === "=") {
       equation = equation.slice(0, -1);
       log.innerText = equation;
       result.innerText = calculate();
       equation = "";
+      hasDot = false;
     } else if (currentValue === "<") {
+      if(equation.at(-2) === '.'){
+        hasDot = false;
+      }
       equation = equation.slice(0, -2);
       result.innerText = equation;
     } else {
