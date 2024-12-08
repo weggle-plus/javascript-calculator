@@ -48,13 +48,21 @@ function validateRepeatOper() {
   if (operator.includes(prev)) {
     equation = equation.slice(0, -1);
   }
-  result.innerText = equation;
 }
 
 function validateDot() {
   if (!hasDot) {
     hasDot = true;
   } else {
+    equation = equation.slice(0, -1);
+  }
+}
+
+function validateZero() {
+  const prev = equation.at(-3);
+  if (equation.length === 2 && equation.at(0) === "0") {
+    equation = equation.slice(0, -1);
+  } else if (operator.includes(prev) && equation.at(-2) === "0") {
     equation = equation.slice(0, -1);
   }
 }
@@ -87,6 +95,8 @@ row.forEach(function (item) {
         hasDot = false;
       }
       equation = equation.slice(0, -2);
+    } else if (currentValue === "0") {
+      validateZero();
     }
 
     result.innerText = equation;
