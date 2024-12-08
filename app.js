@@ -2,7 +2,7 @@ const row = document.querySelectorAll(".row");
 const result = document.querySelector(".result");
 const log = document.querySelector(".log");
 const operator = ["%", "x", "-", "+"];
-let equation = "5%5+10-4*2";
+let equation = "";
 
 row.forEach(function (item) {
   item.addEventListener("click", function (event) {
@@ -27,7 +27,7 @@ function calculate() {
   // x, % 먼저 찾고 양 옆 숫자를 찾아 계산한다. -> 대체
   // 순차적으로 계산
 
-  const number = equation.split(/[%x+-]/).map(Number);
+  const number = equation.split(/[%x+*\/-]/).map(Number);
   const oper = equation.split(/[0-9.]/).filter((item) => item);
 
   let operIdx = 0;
