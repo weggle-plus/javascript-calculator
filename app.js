@@ -2,7 +2,7 @@ const row = document.querySelectorAll(".row");
 const result = document.querySelector(".result");
 const log = document.querySelector(".log");
 const operator = ["%", "x", "-", "+"];
-let equation = "5%55x2";
+let equation = "5%5+10-4*2";
 
 row.forEach(function (item) {
   item.addEventListener("click", function (event) {
@@ -31,21 +31,33 @@ function calculate() {
   const oper = equation.split(/[0-9.]/).filter((item) => item);
 
   let operIdx = 0;
-  while(operIdx < oper.length){
-    if(oper[operIdx] == 'x' || oper[operIdx] == '*'){
-        number[operIdx] = number[operIdx] * number[operIdx + 1];
-        number.splice(operIdx + 1, 1);
-        oper.splice(operIdx, 1);
-        continue;
-    } else if(oper[operIdx] == '%' || oper[operIdx] == '/'){
-        number[operIdx] = number[operIdx] / number[operIdx + 1];
-        number.splice(operIdx + 1, 1);
-        oper.splice(operIdx, 1);
-        continue;
+  while (operIdx < oper.length) {
+    if (oper[operIdx] == "x" || oper[operIdx] == "*") {
+      number[operIdx] = number[operIdx] * number[operIdx + 1];
+      number.splice(operIdx + 1, 1);
+      oper.splice(operIdx, 1);
+      continue;
+    } else if (oper[operIdx] == "%" || oper[operIdx] == "/") {
+      number[operIdx] = number[operIdx] / number[operIdx + 1];
+      number.splice(operIdx + 1, 1);
+      oper.splice(operIdx, 1);
+      continue;
     }
     operIdx++;
   }
 
+  operIdx = 0;
+  while (oper.length > 0) {
+    if (oper[operIdx] == "+") {
+      number[operIdx] = number[operIdx] + number[operIdx + 1];
+      number.splice(operIdx + 1, 1);
+      oper.splice(operIdx, 1);
+    } else if (oper[operIdx] == "-") {
+      number[operIdx] = number[operIdx] - number[operIdx + 1];
+      number.splice(operIdx + 1, 1);
+      oper.splice(operIdx, 1);
+    }
+  }
   console.log(number);
   console.log(oper);
 }
