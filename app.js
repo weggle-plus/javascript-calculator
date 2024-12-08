@@ -39,7 +39,7 @@ function calculate() {
       oper.splice(operIdx, 1);
     }
   }
-
+  equation = number[0];
   return number[0];
 }
 
@@ -54,10 +54,8 @@ function validateRepeatOper() {
 function validateDot() {
   if (!hasDot) {
     hasDot = true;
-    result.innerText = equation;
   } else {
     equation = equation.slice(0, -1);
-    result.innerText = equation;
   }
 }
 
@@ -76,24 +74,21 @@ row.forEach(function (item) {
       validateRepeatOper();
       if (equation.length === 1) {
         equation = "0" + equation;
-        result.innerText = equation;
       }
     } else if (currentValue === ".") {
       validateDot();
     } else if (currentValue === "=") {
       equation = equation.slice(0, -1);
       log.innerText = equation;
-      result.innerText = calculate();
-      equation = "";
+      calculate();
       hasDot = false;
     } else if (currentValue === "<") {
       if (equation.at(-2) === ".") {
         hasDot = false;
       }
       equation = equation.slice(0, -2);
-      result.innerText = equation;
-    } else {
-      result.innerText = equation;
     }
+
+    result.innerText = equation;
   });
 });
