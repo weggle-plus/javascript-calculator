@@ -1,10 +1,9 @@
 
-import { tokenizer, infixToPostfix} from '../index';
+import { tokenizer, infixToPostfix, calculatePostfix} from '../index';
 import {Token} from '../types/types';
 
 
 describe('tokenizer function', () => {
-    
   it('should tokenize a simple arithmetic expression', () => {
     const input = '3 + 5';
     const expected: Token[] = [3, '+', 5];
@@ -71,5 +70,44 @@ describe('infixToPostfix 함수 테스트', () => {
         expect(infixToPostfix(input)).toEqual(expected);
     });
 
+});
+
+
+describe('calculatePostfix 함수 테스트', () => {
+
+  it('단일 연산이 있는 경우, 결과를 정확히 계산해야 한다', () => {
+      const input: Token[] = [3, 5, '+'];
+      const expected = 8;
+      expect(calculatePostfix(input)).toBe(expected);
+  });
+
+  it('여러 연산이 있는 경우, 우선순위에 따라 정확히 계산해야 한다', () => {
+      const input: Token[] = [3, 5, 2, '*', '+'];
+      const expected = 13; // 3 + (5 * 2)
+      expect(calculatePostfix(input)).toBe(expected);
+  });
+
+  it('연산 순서와 괄호 표현을 포함한 계산이 정확해야 한다', () => {
+      const input: Token[] = [3, 5, 2, '*', '+', 8, '-'];
+      const expected = 5; // (3 + (5 * 2)) - 8
+      expect(calculatePostfix(input)).toBe(expected);
+  });
+
+  it('나눗셈 연산을 포함한 경우, 결과가 정확해야 한다', () => {
+      const input: Token[] = [10, 2, '/'];
+      const expected = 5; // 10 / 2
+      expect(calculatePostfix(input)).toBe(expected);
+  });
+
+  it('복잡한 계산을 처리할 수 있어야 한다', () => {
+      const input: Token[] = [10, 2, '/', 3, '+', 4, '*'];
+      const expected = 32; // ((10 / 2) + 3) * 4
+      expect(calculatePostfix(input)).toBe(expected);
+  });
+
+  it('잘못된 후위 표기식이 입력될 경우, 에러를 던져야 한다', () => {
+      const input: Token[] = [3, '+']; // 연산에 필요한 피연산자가 부족함
+      expect(() => calculatePostfix(input)).toThrow('잘못된 후위표기식 입니다.');
+  });
 });
 

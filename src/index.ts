@@ -1,6 +1,5 @@
 import { Operator, Token } from './types/types';
 import { OPERATOR, OPERATOR_PRIORITY } from './types/constants';
-let input = '1 + 1';
 
 export function tokenizer(input: string): Token[] {
     let currentNumber = '';
@@ -9,7 +8,7 @@ export function tokenizer(input: string): Token[] {
         if (char === ' ') {
             return;
         }
-        if (!OPERATOR.includes(char) && isNaN(Number(char))) {
+        if (!OPERATOR.includes(char) && isNaN(Number(char)) && char !== '.') {
             return;
         }
         if (OPERATOR.includes(char)) {
@@ -20,7 +19,11 @@ export function tokenizer(input: string): Token[] {
             tokens.push(char as Operator)
         }
         else {
+            if (char === '.' && currentNumber.includes('.')) {
+                throw new Error('잘못된 소수 입력입니다.');
+            }
             currentNumber += char;
+          
         }
     })
     if (currentNumber !== '') {
@@ -49,3 +52,42 @@ export function infixToPostfix(tokens: Token[]): Token[] {
     }
     return postfix;
 } 
+
+
+export function calculatePostfix(postfix: Token[]): number {
+
+    const result = postfix.reduce((stack: number[], cur: Token): number[] => {
+        if (!isNaN(Number(cur))) {
+            stack.push(Number(cur));
+        }else{
+            const secondNumber = stack.pop();
+            const firstNumber = stack.pop();
+            if (firstNumber === undefined || secondNumber === undefined) {
+                throw new Error('잘못된 후위표기식 입니다.');
+            }
+            switch (cur) {
+                case '+':
+                    stack.push(firstNumber + secondNumber);
+                    break;
+                case '-':
+                    stack.push(firstNumber - secondNumber);
+                    break;
+                case '*':
+                    stack.push(firstNumber * secondNumber);
+                    break;
+                case '/':
+                    if (secondNumber === 0) {
+                        throw new Error('0으로 나눌 수 없습니다.');
+                    }
+                    stack.push(firstNumber / secondNumber);
+                    break;
+            }
+        }
+        return stack;
+    }, [] as number[])
+
+    if (result.length !== 1) {
+        throw new Error('후위 표기식 계산 결과가 올바르지 않습니다.');
+    }
+    return result[0];
+}
