@@ -1,8 +1,4 @@
-import {
-  validateRepeatOper,
-  validateDot,
-  validateZero,
-} from "./validateFunctions.js";
+import { validateRepeatOper, validateDot, validateZero } from "./validateFunctions.js";
 
 const result = document.querySelector(".result");
 const log = document.querySelector(".log");
@@ -24,11 +20,7 @@ export function calculate() {
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
       continue;
-    } else if (
-      oper[operIdx] == "%" ||
-      oper[operIdx] == "/" ||
-      oper[operIdx] == "÷"
-    ) {
+    } else if (oper[operIdx] == "%" || oper[operIdx] == "/" || oper[operIdx] == "÷") {
       number[operIdx] = number[operIdx] / number[operIdx + 1];
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
@@ -85,30 +77,13 @@ export function handleInput(currentValue) {
     equation = validateZero(equation);
   }
 
-  if(Number(currentValue).isNaN()) {
-    console.log(Number(currentValue));
-    console.log(currentValue);
-  }
+  // addCommaFunction(equation);
+
   result.innerText = equation;
 }
 
-function addCommaFunction(equation) {
-  let tempEquation = equation.toSting();
-  /**
-   * if 숫자만 있을 경우 ex) 10+1000
-   * 
-   * 가장 최근 오퍼레이터 위치 찾기
-   * 그 앞 부분을 삭제
-   * 뒷부분만 새로운 변수에 추가
-   * 다시 equation에 넣어줌
-   */
-  if(tempEquation.indexOf(operator)) {
-  }
-  if (equation.includes(".")) {
-    let integerNum = +equation.split(".")[0];
-    let decimalNum = +equation.split(".")[1];
-    integerNum.toLocaleString();
-    console.log(integerNum.toLocaleString() + "." + decimalNum);
-  } else {
-  }
+function addCommaFunction(str) {
+  const number = str.split(/[%÷x×+*\/-]/).at(-1);
+
+  equation = equation.slice(0, -number.length) + Number(number).toLocaleString();
 }
