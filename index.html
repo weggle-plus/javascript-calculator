@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>계산기</title>
+</head>
+<body>
+    <section class="calculator">
+        <div class="display">
+            <div class="formula"></div>
+            <div class="result"></div>
+        </div>
+        <div class="buttons">
+            <!-- 1열 -->
+            <div class="btn backspace" data-value="back">&lt;</div>
+            <div class="btn all-clear" data-value="clear">AC</div>
+            <div class="btn operator" data-value="/">&divide;</div>
+            <!-- 2열 -->
+            <div class="btn num" data-value="7">7</div>
+            <div class="btn num" data-value="8">8</div>
+            <div class="btn num" data-value="9">9</div>
+            <div class="btn operator" data-value="X">&times;</div>
+            <!-- 3열 -->
+            <div class="btn num" data-value="4">4</div>
+            <div class="btn num" data-value="5">5</div>
+            <div class="btn num" data-value="6">6</div>
+            <div class="btn operator" data-value="-">-</div>
+            <!-- 4열 -->
+            <div class="btn num" data-value="1">1</div>
+            <div class="btn num" data-value="2">2</div>
+            <div class="btn num" data-value="3">3</div>
+            <div class="btn operator" data-value="+">+</div>
+            <!-- 5열 -->
+            <div class="btn zero" data-value="/">0</div>
+            <div class="btn dot" data-value="/">.</div>
+            <div class="btn equals" data-value="=">=</div>
+        </div>
+    </section>
+    <script src="app.js"></script>
+</body>
+</html>

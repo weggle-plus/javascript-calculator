@@ -1,0 +1,67 @@
+/* 레이아웃 */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding : 10px;
+}
+
+.calculator {
+    width: 300px;
+    border-radius: 20;
+    border:rgb(142, 142, 142);
+}
+
+/* 디스플레이 구성 */
+.display {
+    background: rgb(65, 60, 60);
+    color: #fff;
+}
+
+.formula {
+
+}
+
+.result {
+
+}
+
+/* 버튼 구성 */
+.buttons {
+    background: rgb(224, 224, 224);
+}
+
+.btn {
+    color: rgb(0, 0, 0);
+}
+
+.backspace {
+
+}
+
+.all-clear {
+
+}
+
+.operator {
+    background: rgb(232, 150, 80);
+    color: #fff;
+}
+
+.num {
+
+}
+
+.zero {
+
+}
+
+.dot {
+
+}
+
+.equals {
+    background: rgb(232, 150, 80);
+    color: #fff;
+}
