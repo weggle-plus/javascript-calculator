@@ -14,6 +14,10 @@ function isExistOutputDisplayValue(){
 // 연산자 연속입력 방지
 //  ㄴ 입력값 마지막이 연산자일 때 연산자 입력 불가능
 //  ㄴ 아무 입력값 없을 때 연산자 입력 불가능
+// . 입력 시 앞에 아무것도 없거나 숫자가 아닐 경우
+// 키보드 입력
+// 엔터눌렀을 때 결과값
+// 나누기0 > 에러표시
 
 function addElementToDisplay(element){
     const operators = ["+", "-", "/", "*"];
