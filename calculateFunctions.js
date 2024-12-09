@@ -2,24 +2,24 @@ import { validateRepeatOper, validateDot, validateZero } from "./validateFunctio
 
 const result = document.querySelector(".result");
 const log = document.querySelector(".log");
-const operator = ["%", "x", "-", "+", "/", "*"];
+const operator = ["%", "÷", "x", "×", "-", "+", "/", "*"];
 let equation = "";
 let hasDot = false;
 
 export function calculate() {
     // x, % 먼저 찾고 양 옆 숫자를 찾아 계산한다. -> 대체
     // 순차적으로 계산
-    const number = equation.split(/[%x+*\/-]/).map(Number);
+    const number = equation.split(/[%÷x×+*\/-]/).map(Number);
     const oper = equation.split(/[0-9.]/).filter((item) => item);
   
     let operIdx = 0;
     while (operIdx < oper.length) {
-      if (oper[operIdx] == "x" || oper[operIdx] == "*") {
+      if (oper[operIdx] == "x" || oper[operIdx] == "*" || oper[operIdx] == "×") {
         number[operIdx] = number[operIdx] * number[operIdx + 1];
         number.splice(operIdx + 1, 1);
         oper.splice(operIdx, 1);
         continue;
-      } else if (oper[operIdx] == "%" || oper[operIdx] == "/") {
+      } else if (oper[operIdx] == "%" || oper[operIdx] == "/" || oper[operIdx] == "÷") {
         number[operIdx] = number[operIdx] / number[operIdx + 1];
         number.splice(operIdx + 1, 1);
         oper.splice(operIdx, 1);

@@ -1,10 +1,10 @@
 import { handleInput } from "./calculateFunctions.js";
 
-const row = document.querySelectorAll(".row");
+const items = document.querySelectorAll(".item");
 const operator = ["%", "x", "-", "+", "/", "*"];
 const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
 
-row.forEach(function (item) {
+items.forEach(function (item) {
   item.addEventListener("click", function (event) {
     let currentValue = event.target.innerText;
 
