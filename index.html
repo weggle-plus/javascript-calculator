@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./calculator.css">
-  <script src="./calculator.js"></script>
 </head>
 <body>
   <div id="wrap">
@@ -17,29 +16,30 @@
       </div>
       <div class="buttons">
         <div class="left">
-          <button onclick="">&lt;</button>
-          <button onclick="reset()">AC</button>
-          <button onclick="addToDisplay('1')">1</button>
-          <button onclick="addToDisplay('2')">2</button>
-          <button onclick="addToDisplay('3')">3</button>
-          <button onclick="addToDisplay('4')">4</button>
-          <button onclick="addToDisplay('5')">5</button>
-          <button onclick="addToDisplay('6')">6</button>
-          <button onclick="addToDisplay('7')">7</button>
-          <button onclick="addToDisplay('8')">8</button>
-          <button onclick="addToDisplay('9')">9</button>
-          <button onclick="addToDisplay('0')">0</button>
-          <button onclick="addToDisplay('.')">.</button>
+          <button onclick="removeElement()">&lt;</button>
+          <button onclick="resetDisplay()">AC</button>
+          <button onclick="addElementToDisplay('1')">1</button>
+          <button onclick="addElementToDisplay('2')">2</button>
+          <button onclick="addElementToDisplay('3')">3</button>
+          <button onclick="addElementToDisplay('4')">4</button>
+          <button onclick="addElementToDisplay('5')">5</button>
+          <button onclick="addElementToDisplay('6')">6</button>
+          <button onclick="addElementToDisplay('7')">7</button>
+          <button onclick="addElementToDisplay('8')">8</button>
+          <button onclick="addElementToDisplay('9')">9</button>
+          <button onclick="addElementToDisplay('0')">0</button>
+          <button onclick="addElementToDisplay('.')">.</button>
         </div>
         <div class="right">
-          <button onclick="addToDisplay('+')">+</button>
-          <button onclick="addToDisplay('-')">-</button>
-          <button onclick="addToDisplay('x')">x</button>
-          <button onclick="addToDisplay('/')">&divide;</button>
-          <button onclick="calculate()">=</button>
+          <button onclick="addElementToDisplay('+')">+</button>
+          <button onclick="addElementToDisplay('-')">-</button>
+          <button onclick="addElementToDisplay('*')">x</button>
+          <button onclick="addElementToDisplay('/')">&divide;</button>
+          <button onclick="getResult()">=</button>
         </div>
       </div>
     </div>
   </div>
+  <script src="./calculator.js"></script>
 </body>
 </html>
