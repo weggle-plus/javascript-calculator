@@ -2,6 +2,7 @@ const row = document.querySelectorAll(".row");
 const result = document.querySelector(".result");
 const log = document.querySelector(".log");
 const operator = ["%", "x", "-", "+", "/", "*"];
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
 let equation = "";
 let hasDot = false;
 
@@ -58,6 +59,39 @@ function validateDot() {
   }
 }
 
+function validateException(currentValue) {
+  equation += currentValue;
+
+  if (currentValue === "AC") {
+    equation = "";
+    result.innerText = "";
+    log.innerText = "";
+    hasDot = false;
+  } else if (operator.includes(currentValue)) {
+    hasDot = false;
+    validateRepeatOper();
+    if (equation.length === 1) {
+      equation = "0" + equation;
+    }
+  } else if (currentValue === ".") {
+    validateDot();
+  } else if (currentValue === "=") {
+    equation = equation.slice(0, -1);
+    log.innerText = equation;
+    calculate();
+    hasDot = false;
+  } else if (currentValue === "<") {
+    if (equation.at(-2) === ".") {
+      hasDot = false;
+    }
+    equation = equation.slice(0, -2);
+  } else if (currentValue === "0") {
+    validateZero();
+  }
+
+  result.innerText = equation;
+}
+
 function validateZero() {
   const prev = equation.at(-3);
   if (equation.length === 2 && equation.at(0) === "0") {
@@ -70,35 +104,20 @@ function validateZero() {
 row.forEach(function (item) {
   item.addEventListener("click", function (event) {
     let currentValue = event.target.innerText;
-    equation += currentValue;
 
-    if (currentValue === "AC") {
-      equation = "";
-      result.innerText = "";
-      log.innerText = "";
-      hasDot = false;
-    } else if (operator.includes(currentValue)) {
-      hasDot = false;
-      validateRepeatOper();
-      if (equation.length === 1) {
-        equation = "0" + equation;
-      }
-    } else if (currentValue === ".") {
-      validateDot();
-    } else if (currentValue === "=") {
-      equation = equation.slice(0, -1);
-      log.innerText = equation;
-      calculate();
-      hasDot = false;
-    } else if (currentValue === "<") {
-      if (equation.at(-2) === ".") {
-        hasDot = false;
-      }
-      equation = equation.slice(0, -2);
-    } else if (currentValue === "0") {
-      validateZero();
-    }
-
-    result.innerText = equation;
+    validateException(currentValue);
   });
+});
+
+window.addEventListener("keydown", (e) => {
+  const key = e.key;
+
+  if (operator.includes(key) || numbers.includes(key)) {
+    validateException(e.key);
+  } else if (key === "Enter") {
+    e.preventDefault();
+    validateException("=");
+  } else if (key === "Backspace") {
+    validateException("<");
+  }
 });
