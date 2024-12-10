@@ -1,5 +1,5 @@
 import { Operator, Token } from './types/types';
-import { OPERATOR, OPERATOR_PRIORITY } from './types/constants';
+import { OPERATOR, OPERATOR_PRIORITY } from './types/constants.js';
 
 export function tokenizer(input: string): Token[] {
     let currentNumber = '';

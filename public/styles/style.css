@@ -21,6 +21,7 @@
   }
   
   .box .rectangle {
+    font-size: 0;
     position: absolute;
     width: 103px;
     height: 120px;
@@ -188,12 +189,12 @@
   }
   
   .box .text-wrapper-3 {
+    position: absolute;
     width: 32px;
     top: 139px;
     left: 345px;
     color: #ffffff;
     font-size: 50px;
-    position: absolute;
     font-family: "Inter-Regular", Helvetica;
     font-weight: 400;
     letter-spacing: 0;
@@ -334,6 +335,7 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
+    text-align : left;
   }
   
   .box .text-wrapper-5 {
@@ -347,4 +349,5 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
+    text-align: right;
   }
