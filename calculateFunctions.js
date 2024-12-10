@@ -65,7 +65,7 @@ export function handleInput(currentValue) {
     hasDot = res.hasDot;
   } else if (currentValue === "=") {
     equation = equation.slice(0, -1);
-    log.innerText = equation;
+    log.innerText = addCommaFunction(equation.toString());
     calculate();
     hasDot = false;
   } else if (currentValue === "<") {
@@ -77,13 +77,26 @@ export function handleInput(currentValue) {
     equation = validateZero(equation);
   }
 
-  // addCommaFunction(equation);
-
-  result.innerText = equation;
+  result.innerText = addCommaFunction(equation.toString());
 }
 
 function addCommaFunction(str) {
-  const number = str.split(/[%÷x×+*\/-]/).at(-1);
+  const strArr = str.split(/([%÷x×+*\/-])/);
+  let result = strArr
+    .map((item) => {
+      if (!isNaN(item)) {
+        const [integerPart, decimalPart] = item.split(".");
+        const formattedInteger = Number(integerPart).toLocaleString();
+        return decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+      } else {
+        return item;
+      }
+    })
+    .join("");
 
-  equation = equation.slice(0, -number.length) + Number(number).toLocaleString();
+  if (operator.includes(str.at(-1))) {
+    result = result.slice(0, -1);
+  }
+
+  return result;
 }
