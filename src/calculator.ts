@@ -8,7 +8,7 @@ function initializeCalculator() {
     resultDisplay = document.querySelector('.text-wrapper-5') as HTMLParagraphElement;
     expressionDisplay = document.querySelector('.p') as HTMLParagraphElement;
 
-    document.querySelectorAll('.div-wrapper, .overlap-group, .element-wrapper, .overlap-5, .rectangle, .text-wrapper-3').forEach(button => {
+    document.querySelectorAll('[class^="overlap-group-wrapper"], [class^="element-button"], [class^="overlap-group"], [class^="rectangle"]').forEach(button => {
         button.addEventListener('click', (e) => {
             const target = e.currentTarget as HTMLElement;
             const value = target.textContent?.trim();
@@ -46,7 +46,6 @@ function handleInput(value: string) {
                 const postfix = infixToPostfix(tokens);
                 const result = calculatePostfix(postfix);
                 resultDisplay.textContent = result.toString();
-                currentExpression = result.toString();
             } catch (error) {
                 resultDisplay.textContent = '에러';
             }

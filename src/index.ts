@@ -1,6 +1,5 @@
 import { Operator, Token } from './types/types';
 import { OPERATOR, OPERATOR_PRIORITY } from './types/constants.js';
-import Decimal from '../node_modules/decimal.js/decimal.js';
 
 export function tokenizer(input: string): Token[] {
     let currentNumber = '';
