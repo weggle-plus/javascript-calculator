@@ -1,5 +1,5 @@
-let inputDisplay = document.getElementById('display')
-let outputDisplay = document.getElementById('result')
+let inputDisplay = document.getElementById('display');
+let outputDisplay = document.getElementById('result');
 
 const elementType = {
     NUMBER: 1,
@@ -8,9 +8,30 @@ const elementType = {
     EQUALS: 4
 };
 
-// 입력값 처리, 디스플레이 출력
-function isExistOutputDisplayValue() {
-    if (outputDisplay.value.length) {
+inputDisplay.addEventListener("keyup", function(e){
+    if(e.keyCode === 13){ //Enter > 결과값 출력(=)
+        getResult();
+    } 
+    if(e.keyCode === 27){ //ESC > 전체 삭제(AC)
+        resetDisplay();
+    }
+});
+
+// 입력제한
+function limitInput(input){
+    const regex = /^[0-9+\-*./]*$/;
+    input.onkeyup = function(e){
+        if(!regex.test(this.value)){
+            console.log(this.value[this.value.length -1]);
+            this.value = this.value.replace(/[^0-9+\-*./]/g,'');
+        }
+    }
+}
+limitInput(inputDisplay);
+
+// 결과값 있을 때
+function isExistOutputDisplayValue(){
+    if(outputDisplay.value.length){
         return true;
     }
     return false;
@@ -148,7 +169,7 @@ function infixToPostfix(infix) {
 
     const postfix = [];
     const operatorStack = [];
-    const elements = infix.match(/\d+(\.\d+)?|[+\-*/]/g);
+    const elements = infix.match(/\d+(\.\d+)?|[+\-*=/]/g);
 
     elements.forEach(element => {
         if (isNaN(element)) {

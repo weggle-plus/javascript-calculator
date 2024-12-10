@@ -11,8 +11,8 @@
     <h1>calculator</h1>
     <div class="calculatorWrap">
       <div class="displayWrap">
-        <input type="text" id="display">
-        <input type="text" id="result">
+        <input type="text" id="display" autofocus>
+        <input type="text" id="result" disabled>
       </div>
       <div class="buttons">
         <div class="left">
@@ -35,7 +35,7 @@
           <button onclick="addElementToDisplay('-')">-</button>
           <button onclick="addElementToDisplay('*')">x</button>
           <button onclick="addElementToDisplay('/')">&divide;</button>
-          <button onclick="getResult()">=</button>
+          <button onclick="addElementToDisplay('=')">=</button>
         </div>
       </div>
     </div>
