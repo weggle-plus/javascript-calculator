@@ -9,7 +9,7 @@ body{
   justify-content: center;
 }
 .wrap {
-  width: 412px;
+  min-width: 412px;
 }
 .container {
   display: grid;
@@ -33,7 +33,7 @@ body{
 }
 .result {
   margin-top: 40px;
-  margin-right: 18px;
+  padding: 0 18px;
   font-size: 50px;
 }
 
