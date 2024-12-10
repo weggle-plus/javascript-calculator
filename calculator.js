@@ -38,14 +38,14 @@ function isExistOutputDisplayValue(){
 }
 
 function processOperatorElement(inputValue, element) {
-    const lastElementType = getLastElementType(inputValue);
-    if (lastElementType === elementType.OPERATOR) {
-        return '';
-    }
-
     if (isExistOutputDisplayValue()) {
         inputDisplay.value = outputDisplay.value + element;
         outputDisplay.value = '';
+        return '';
+    }
+
+    const lastElementType = getLastElementType(inputValue);
+    if (lastElementType === elementType.OPERATOR) {
         return '';
     }
 
