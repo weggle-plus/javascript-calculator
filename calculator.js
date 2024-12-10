@@ -5,31 +5,44 @@ const elementType = {
     NUMBER: 1,
     OPERATOR: 2,
     DECIMALPOINT: 3,
+    EQUALS: 4
 };
 
 // 입력제한
-function limitInput(input){
+function limitInput(input) {
     const regex = /^[0-9+\-*./]*$/;
-    input.onkeyup = function(e){
-        if(!regex.test(this.value)){
-            this.value = this.value.replace(/[^0-9+\-*./]/g,'');
+    input.onkeyup = function (e) {
+        if (!regex.test(this.value)) {
+            this.value = this.value.replace(/[^0-9+\-*./]/g, '');
         }
     }
 }
 limitInput(inputDisplay);
 
-inputDisplay.addEventListener("keyup", function(e){
-    if(e.keyCode === 13 || e.key === '='){ //Enter > 결과값 출력(=)
+inputDisplay.addEventListener("keydown", function (e) {
+    e.preventDefault(); // 브라우저 기본 입력 동작 방지
+
+    const key = e.key;
+    if (getElementType(key) !== undefined) {
+        addElementToDisplay(key);
+    }
+
+    if (key === 'Enter' || key === '=') { //Enter > 결과값 출력(=)
         getResult();
-    } 
-    if(e.keyCode === 27){ //ESC > 전체 삭제(AC)
+    }
+
+    if (key === 'Backspace') {
+        removeElement();
+    }
+
+    if (key === 'Escape') { //ESC > 전체 삭제(AC)
         resetDisplay();
     }
 });
 
 // 결과값 있을 때
-function isExistOutputDisplayValue(){
-    if(outputDisplay.value.length){
+function isExistOutputDisplayValue() {
+    if (outputDisplay.value.length) {
         return true;
     }
     return false;
@@ -75,6 +88,7 @@ function getLastElementType(inputValue) {
 }
 
 function getElementType(element) {
+    const validNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const operators = ['+', '-', '/', '*'];
 
     if (operators.includes(element)) {
@@ -85,11 +99,11 @@ function getElementType(element) {
         return elementType.DECIMALPOINT;
     }
 
-    if (isNaN(Number(element))) {
-        return undefined;
+    if (validNumbers.includes(element)) {
+        return elementType.NUMBER;
     }
 
-    return elementType.NUMBER;
+    return undefined;
 }
 
 // 버튼 (입력) 이벤트
