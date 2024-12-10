@@ -51,6 +51,9 @@ button {
   overflow: hidden;
   background: #8E8E8E;
 }
+textarea{
+  resize: vertical;
+}
 .calculatorWrap input,textarea{
   width: 100%;
   min-height: 50%;
@@ -58,7 +61,6 @@ button {
   text-align: right;
   padding: 1rem;
   font-size: 1.5rem;
-  font-size: 2.5rem;
 }
 .calculatorWrap input#result{
   font-size: 2.5rem;
