@@ -19,7 +19,9 @@ export function calculate() {
   let operIdx = 0;
   while (operIdx < oper.length) {
     if (oper[operIdx] == "x" || oper[operIdx] == "*" || oper[operIdx] == "×") {
-      number[operIdx] = new Decimal(number[operIdx]).times(new Decimal(number[operIdx + 1]));
+      number[operIdx] = new Decimal(number[operIdx]).times(
+        new Decimal(number[operIdx + 1])
+      );
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
       continue;
@@ -28,7 +30,9 @@ export function calculate() {
       oper[operIdx] == "/" ||
       oper[operIdx] == "÷"
     ) {
-      number[operIdx] = new Decimal(number[operIdx]).dividedBy(new Decimal(number[operIdx + 1]));
+      number[operIdx] = new Decimal(number[operIdx]).dividedBy(
+        new Decimal(number[operIdx + 1])
+      );
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
       continue;
@@ -39,11 +43,15 @@ export function calculate() {
   operIdx = 0;
   while (oper.length > 0) {
     if (oper[operIdx] == "+") {
-      number[operIdx] = new Decimal(number[operIdx]).plus(new Decimal(number[operIdx + 1]));
+      number[operIdx] = new Decimal(number[operIdx]).plus(
+        new Decimal(number[operIdx + 1])
+      );
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
     } else if (oper[operIdx] == "-") {
-      number[operIdx] = new Decimal(number[operIdx]).minus(new Decimal(number[operIdx + 1]));
+      number[operIdx] = new Decimal(number[operIdx]).minus(
+        new Decimal(number[operIdx + 1])
+      );
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
     }
@@ -95,7 +103,7 @@ function addCommaFunction(str) {
       if (!isNaN(item) && !operator.includes(item)) {
         const [integerPart, decimalPart] = item.split(".");
         const formattedInteger = Number(integerPart).toLocaleString();
-        return decimalPart
+        return decimalPart !== undefined
           ? `${formattedInteger}.${decimalPart}`
           : formattedInteger;
       } else {
