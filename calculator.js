@@ -5,29 +5,27 @@ const elementType = {
     NUMBER: 1,
     OPERATOR: 2,
     DECIMALPOINT: 3,
-    EQUALS: 4
 };
-
-inputDisplay.addEventListener("keyup", function(e){
-    if(e.keyCode === 13){ //Enter > 결과값 출력(=)
-        getResult();
-    } 
-    if(e.keyCode === 27){ //ESC > 전체 삭제(AC)
-        resetDisplay();
-    }
-});
 
 // 입력제한
 function limitInput(input){
     const regex = /^[0-9+\-*./]*$/;
     input.onkeyup = function(e){
         if(!regex.test(this.value)){
-            console.log(this.value[this.value.length -1]);
             this.value = this.value.replace(/[^0-9+\-*./]/g,'');
         }
     }
 }
 limitInput(inputDisplay);
+
+inputDisplay.addEventListener("keyup", function(e){
+    if(e.keyCode === 13 || e.key === '='){ //Enter > 결과값 출력(=)
+        getResult();
+    } 
+    if(e.keyCode === 27){ //ESC > 전체 삭제(AC)
+        resetDisplay();
+    }
+});
 
 // 결과값 있을 때
 function isExistOutputDisplayValue(){
@@ -87,10 +85,6 @@ function getElementType(element) {
         return elementType.DECIMALPOINT;
     }
 
-    if (element === '=') {
-        return elementType.EQUALS;
-    }
-
     if (isNaN(Number(element))) {
         return undefined;
     }
@@ -102,11 +96,6 @@ function getElementType(element) {
 function addElementToDisplay(element) {
     const inputValue = inputDisplay.value;
     const type = getElementType(element);
-
-    if (type === elementType.EQUALS) {
-        getResult();
-        return;
-    }
 
     if (type === elementType.OPERATOR) {
         element = processOperatorElement(inputValue, element);
