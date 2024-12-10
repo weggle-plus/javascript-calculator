@@ -11,7 +11,7 @@ const operator = ["%", "÷", "x", "×", "-", "+", "/", "*"];
 let equation = "";
 let hasDot = false;
 
-export function calculate() {
+export function calculate(equation) {
   // x, % 먼저 찾고 양 옆 숫자를 찾아 계산한다. -> 대체
   // 순차적으로 계산
   const number = equation.split(/[%÷x×+*\/-]/).map(Number);
@@ -56,7 +56,7 @@ export function calculate() {
       oper.splice(operIdx, 1);
     }
   }
-  equation = number[0];
+
   return number[0];
 }
 
@@ -81,7 +81,7 @@ export function handleInput(currentValue) {
   } else if (currentValue === "=") {
     equation = equation.slice(0, -1);
     log.innerText = addCommaFunction(equation.toString());
-    calculate();
+    equation = calculate(equation);
     hasDot = false;
   } else if (currentValue === "<") {
     if (equation.at(-2) === ".") {
