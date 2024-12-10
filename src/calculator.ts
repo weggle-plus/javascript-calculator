@@ -7,8 +7,7 @@ let expressionDisplay: HTMLParagraphElement;
 function initializeCalculator() {
     resultDisplay = document.querySelector('.text-wrapper-5') as HTMLParagraphElement;
     expressionDisplay = document.querySelector('.p') as HTMLParagraphElement;
-    
-    // 버튼 클릭 이벤트 처리
+
     document.querySelectorAll('.div-wrapper, .overlap-group, .element-wrapper, .overlap-5, .rectangle').forEach(button => {
         button.addEventListener('click', (e) => {
             const target = e.currentTarget as HTMLElement;
@@ -20,22 +19,19 @@ function initializeCalculator() {
         });
     });
 
-    // 키보드 입력 처리
     document.addEventListener('keydown', (e) => {
         const key = e.key;
 
-        // 숫자, 연산자, 기타 기능 키에 대한 입력 처리
-        if (key.match(/[0-9]/) || key === '+' || key === '-' || key === '*' || key === '/' || key === '=' || key === 'Enter' || key === 'Backspace' || key === 'Escape') {
+        if (key.match(/[0-9]/) || key === '+' || key === '-' || key === '*' || key === '/' || key === '=' || key === 'Enter' || key === 'Backspace' || key === 'Escape' || key === '.') {
             handleInput(key);
         }
     });
 }
 
-// 입력을 처리하는 함수
 function handleInput(value: string) {
     switch(value) {
         case 'AC':
-        case 'Escape': // Escape 키로 AC 기능 실행
+        case 'Escape': 
             currentExpression = '';
             resultDisplay.textContent = currentExpression;
             break;

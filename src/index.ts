@@ -1,5 +1,6 @@
 import { Operator, Token } from './types/types';
 import { OPERATOR, OPERATOR_PRIORITY } from './types/constants.js';
+import Decimal from '../node_modules/decimal.js/decimal.js';
 
 export function tokenizer(input: string): Token[] {
     let currentNumber = '';
@@ -89,5 +90,5 @@ export function calculatePostfix(postfix: Token[]): number {
     if (result.length !== 1) {
         throw new Error('후위 표기식 계산 결과가 올바르지 않습니다.');
     }
-    return result[0];
+    return parseFloat(result[0].toFixed(11));
 }
