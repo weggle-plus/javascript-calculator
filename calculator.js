@@ -40,72 +40,6 @@ inputDisplay.addEventListener("keydown", function (e) {
     }
 });
 
-// 결과값 있을 때
-function isExistOutputDisplayValue() {
-    if (outputDisplay.value.length) {
-        return true;
-    }
-    return false;
-}
-
-function processOperatorElement(inputValue, element) {
-    if (isExistOutputDisplayValue()) {
-        inputDisplay.value = outputDisplay.value + element;
-        outputDisplay.value = '';
-        return '';
-    }
-
-    const lastElementType = getLastElementType(inputValue);
-    if (lastElementType === elementType.OPERATOR) {
-        return '';
-    }
-
-    return element;
-}
-
-function processDecimalPointElement(inputValue, element) {
-    const lastElementType = getLastElementType(inputValue);
-    if (lastElementType === elementType.DECIMALPOINT) {
-        return '';
-    }
-
-    if (lastElementType !== elementType.NUMBER) {
-        return '0' + element;
-    }
-
-    return element;
-}
-
-function getLastElementType(inputValue) {
-    const inputValueLength = inputValue.length;
-    if (inputValueLength) {
-        const lastElement = inputValue[inputValueLength - 1];
-        const lastElementType = getElementType(lastElement);
-        return lastElementType;
-    }
-
-    return undefined;
-}
-
-function getElementType(element) {
-    const validNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const operators = ['+', '-', '/', '*'];
-
-    if (operators.includes(element)) {
-        return elementType.OPERATOR;
-    }
-
-    if (element === '.') {
-        return elementType.DECIMALPOINT;
-    }
-
-    if (validNumbers.includes(element)) {
-        return elementType.NUMBER;
-    }
-
-    return undefined;
-}
-
 // 버튼 (입력) 이벤트
 function addElementToDisplay(element) {
     const inputValue = inputDisplay.value;
@@ -122,33 +56,6 @@ function addElementToDisplay(element) {
     inputDisplay.value += element;
 }
 
-function resetDisplay() {
-    inputDisplay.value = '';
-    outputDisplay.value = '';
-}
-
-function removeElement() {
-    if (isExistOutputDisplayValue()) {
-        return;
-    }
-
-    inputDisplay.value = inputDisplay.value.slice(0, -1);
-}
-
-function getResult() {
-    let inputValue = 0 + inputDisplay.value;
-    const lastElementType = getLastElementType(inputValue);
-
-    if (lastElementType === elementType.OPERATOR) {
-        inputValue = inputValue.slice(0, -1);
-    }
-
-    const postfix = infixToPostfix(inputValue);
-    const result = calculatePostfix(postfix);
-
-    outputDisplay.value = result;
-}
-
 // 계산기 로직
 function calculate(operand1, operand2, operator) {
     operand1 = new Decimal(operand1);
@@ -162,6 +69,7 @@ function calculate(operand1, operand2, operator) {
     }
 }
 
+// 중위표기식을 후위표기식으로 변환
 function infixToPostfix(infix) {
     const operatorPrecedence = {
         '+': 0,
@@ -197,6 +105,7 @@ function infixToPostfix(infix) {
     return postfix;
 }
 
+// 후위표기식 계산
 function calculatePostfix(postfix) {
     const operandStack = [];
 
@@ -218,3 +127,101 @@ function calculatePostfix(postfix) {
 
     return new Decimal(answer);
 }
+
+function getResult() {
+    let inputValue = 0 + inputDisplay.value;
+    const lastElementType = getLastElementType(inputValue);
+
+    if (lastElementType === elementType.OPERATOR) {
+        inputValue = inputValue.slice(0, -1);
+    }
+
+    const postfix = infixToPostfix(inputValue);
+    const result = calculatePostfix(postfix);
+
+    outputDisplay.value = result;
+}
+
+function resetDisplay() {
+    inputDisplay.value = '';
+    outputDisplay.value = '';
+}
+
+function removeElement() {
+    if (isExistOutputDisplayValue()) {
+        return;
+    }
+
+    inputDisplay.value = inputDisplay.value.slice(0, -1);
+}
+
+// 결과값 있을 때
+function isExistOutputDisplayValue() {
+    if (outputDisplay.value.length) {
+        return true;
+    }
+    return false;
+}
+
+// 연산자 처리
+function processOperatorElement(inputValue, element) {
+    if (isExistOutputDisplayValue()) {
+        inputDisplay.value = outputDisplay.value + element;
+        outputDisplay.value = '';
+        return '';
+    }
+
+    const lastElementType = getLastElementType(inputValue);
+    if (lastElementType === elementType.OPERATOR) {
+        return '';
+    }
+
+    return element;
+}
+
+// 소수점 처리
+function processDecimalPointElement(inputValue, element) {
+    const lastElementType = getLastElementType(inputValue);
+    if (lastElementType === elementType.DECIMALPOINT) {
+        return '';
+    }
+
+    if (lastElementType !== elementType.NUMBER) {
+        return '0' + element;
+    }
+
+    return element;
+}
+
+// 마지막 요소 타입 처리
+function getLastElementType(inputValue) {
+    const inputValueLength = inputValue.length;
+    if (inputValueLength) {
+        const lastElement = inputValue[inputValueLength - 1];
+        const lastElementType = getElementType(lastElement);
+        return lastElementType;
+    }
+
+    return undefined;
+}
+
+// 요소 타입 처리
+function getElementType(element) {
+    const validNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const operators = ['+', '-', '/', '*'];
+
+    if (operators.includes(element)) {
+        return elementType.OPERATOR;
+    }
+
+    if (element === '.') {
+        return elementType.DECIMALPOINT;
+    }
+
+    if (validNumbers.includes(element)) {
+        return elementType.NUMBER;
+    }
+
+    return undefined;
+}
+
