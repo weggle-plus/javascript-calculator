@@ -12,7 +12,7 @@ export function calculate() {
   // 순차적으로 계산
   const number = equation.split(/[%÷x×+*\/-]/).map(Number);
   const oper = equation.split(/[0-9.]/).filter((item) => item);
-
+  console.log("calculate", number, oper);
   let operIdx = 0;
   while (operIdx < oper.length) {
     if (oper[operIdx] == "x" || oper[operIdx] == "*" || oper[operIdx] == "×") {
@@ -82,21 +82,23 @@ export function handleInput(currentValue) {
 
 function addCommaFunction(str) {
   const strArr = str.split(/([%÷x×+*\/-])/);
+  console.log(strArr);
   let result = strArr
     .map((item) => {
-      if (!isNaN(item)) {
+      if (item === "") return;
+      if (!isNaN(item) && !operator.includes(item)) {
+        console.log("number", item);
         const [integerPart, decimalPart] = item.split(".");
         const formattedInteger = Number(integerPart).toLocaleString();
         return decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
       } else {
+        console.log("oper", item);
         return item;
       }
     })
     .join("");
 
-  if (operator.includes(str.at(-1))) {
-    result = result.slice(0, -1);
-  }
+  console.log("result", result);
 
   return result;
 }
