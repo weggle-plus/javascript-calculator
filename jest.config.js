@@ -1,4 +1,4 @@
 export default {
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   testMatch: ["**/__tests__/**/*.test.js", "**/?(*.)+(spec|test).js"],
 };
