@@ -1,8 +1,4 @@
-import {
-  validateRepeatOper,
-  validateDot,
-  validateZero,
-} from "./validateFunctions.js";
+import { validateRepeatOper, validateDot, validateZero } from "./validateFunctions.js";
 import Decimal from "./node_modules/decimal.js/decimal.mjs";
 
 const result = document.querySelector(".result");
@@ -19,20 +15,12 @@ export function calculate(equation) {
   let operIdx = 0;
   while (operIdx < oper.length) {
     if (oper[operIdx] == "x" || oper[operIdx] == "*" || oper[operIdx] == "×") {
-      number[operIdx] = new Decimal(number[operIdx]).times(
-        new Decimal(number[operIdx + 1])
-      );
+      number[operIdx] = new Decimal(number[operIdx]).times(new Decimal(number[operIdx + 1]));
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
       continue;
-    } else if (
-      oper[operIdx] == "%" ||
-      oper[operIdx] == "/" ||
-      oper[operIdx] == "÷"
-    ) {
-      number[operIdx] = new Decimal(number[operIdx]).dividedBy(
-        new Decimal(number[operIdx + 1])
-      );
+    } else if (oper[operIdx] == "%" || oper[operIdx] == "/" || oper[operIdx] == "÷") {
+      number[operIdx] = new Decimal(number[operIdx]).dividedBy(new Decimal(number[operIdx + 1]));
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
       continue;
@@ -43,21 +31,17 @@ export function calculate(equation) {
   operIdx = 0;
   while (oper.length > 0) {
     if (oper[operIdx] == "+") {
-      number[operIdx] = new Decimal(number[operIdx]).plus(
-        new Decimal(number[operIdx + 1])
-      );
+      number[operIdx] = new Decimal(number[operIdx]).plus(new Decimal(number[operIdx + 1]));
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
     } else if (oper[operIdx] == "-") {
-      number[operIdx] = new Decimal(number[operIdx]).minus(
-        new Decimal(number[operIdx + 1])
-      );
+      number[operIdx] = new Decimal(number[operIdx]).minus(new Decimal(number[operIdx + 1]));
       number.splice(operIdx + 1, 1);
       oper.splice(operIdx, 1);
     }
   }
 
-  return number[0];
+  return number[0].toString();
 }
 
 export function handleInput(currentValue) {
@@ -80,7 +64,7 @@ export function handleInput(currentValue) {
     hasDot = res.hasDot;
   } else if (currentValue === "=") {
     equation = equation.slice(0, -1);
-    log.innerText = addCommaFunction(equation.toString());
+    log.innerText = addCommaFunction(equation);
     equation = calculate(equation);
     hasDot = false;
   } else if (currentValue === "<") {
@@ -92,7 +76,7 @@ export function handleInput(currentValue) {
     equation = validateZero(equation);
   }
 
-  result.innerText = addCommaFunction(equation.toString());
+  result.innerText = addCommaFunction(equation);
 }
 
 function addCommaFunction(str) {
@@ -103,9 +87,7 @@ function addCommaFunction(str) {
       if (!isNaN(item) && !operator.includes(item)) {
         const [integerPart, decimalPart] = item.split(".");
         const formattedInteger = Number(integerPart).toLocaleString();
-        return decimalPart !== undefined
-          ? `${formattedInteger}.${decimalPart}`
-          : formattedInteger;
+        return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
       } else {
         return item;
       }
