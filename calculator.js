@@ -1,95 +1,162 @@
 let inputDisplay = document.getElementById('display')
 let outputDisplay = document.getElementById('result')
 
-function isExistOutputDisplayValue(){
-    if(outputDisplay.value.length){
+const elementType = {
+    NUMBER: 1,
+    OPERATOR: 2,
+    DECIMALPOINT: 3,
+    EQUALS: 4
+};
+
+// 입력값 처리, 디스플레이 출력
+function isExistOutputDisplayValue() {
+    if (outputDisplay.value.length) {
         return true;
     }
     return false;
 }
 
-// 결과값이 있을 때
-//  ㄴ 연산자만 입력 가능
-//  ㄴ 전체 삭제 가능
-// 연산자 연속입력 방지
-//  ㄴ 입력값 마지막이 연산자일 때 연산자 입력 불가능
-//  ㄴ 아무 입력값 없을 때 연산자 입력 불가능
-// . 입력 시 앞에 아무것도 없거나 숫자가 아닐 경우
-// 키보드 입력
-// 엔터눌렀을 때 결과값
-// 나누기0 > 에러표시
+function processOperatorElement(inputValue, element) {
+    const lastElementType = getLastElementType(inputValue);
+    if (lastElementType === elementType.OPERATOR) {
+        return '';
+    }
 
-function addElementToDisplay(element){
-    const operators = ["+", "-", "/", "*"];
-    let inputValue = inputDisplay.value;
-    if (isExistOutputDisplayValue()){
-        if(operators.includes(element)){
-            inputDisplay.value = outputDisplay.value + element;
-            outputDisplay.value = "";
-        }
+    if (isExistOutputDisplayValue()) {
+        inputDisplay.value = outputDisplay.value + element;
+        outputDisplay.value = '';
+        return '';
+    }
+
+    return element;
+}
+
+function processDecimalPointElement(inputValue, element) {
+    const lastElementType = getLastElementType(inputValue);
+    if (lastElementType === elementType.DECIMALPOINT) {
+        return '';
+    }
+
+    if (lastElementType !== elementType.NUMBER) {
+        return '0' + element;
+    }
+
+    return element;
+}
+
+function getLastElementType(inputValue) {
+    const inputValueLength = inputValue.length;
+    if (inputValueLength) {
+        const lastElement = inputValue[inputValueLength - 1];
+        const lastElementType = getElementType(lastElement);
+        return lastElementType;
+    }
+
+    return undefined;
+}
+
+function getElementType(element) {
+    const operators = ['+', '-', '/', '*'];
+
+    if (operators.includes(element)) {
+        return elementType.OPERATOR;
+    }
+
+    if (element === '.') {
+        return elementType.DECIMALPOINT;
+    }
+
+    if (element === '=') {
+        return elementType.EQUALS;
+    }
+
+    if (isNaN(Number(element))) {
+        return undefined;
+    }
+
+    return elementType.NUMBER;
+}
+
+// 버튼 (입력) 이벤트
+function addElementToDisplay(element) {
+    const inputValue = inputDisplay.value;
+    const type = getElementType(element);
+
+    if (type === elementType.EQUALS) {
+        getResult();
         return;
     }
-    if(operators.includes(element)){
 
-
-        if(inputDisplay.value[inputDisplay.value.length -1]){}
-
+    if (type === elementType.OPERATOR) {
+        element = processOperatorElement(inputValue, element);
+    } else if (isExistOutputDisplayValue()) {
+        return;
+    } else if (type === elementType.DECIMALPOINT) {
+        element = processDecimalPointElement(inputValue, element);
     }
+
     inputDisplay.value += element;
 }
 
-function resetDisplay(){
-    inputDisplay.value = "";
-    outputDisplay.value = "";
+function resetDisplay() {
+    inputDisplay.value = '';
+    outputDisplay.value = '';
 }
 
-function removeElement(){
-    if (isExistOutputDisplayValue()){
+function removeElement() {
+    if (isExistOutputDisplayValue()) {
         return;
     }
 
-    inputDisplay.value = inputDisplay.value.slice(0,-1);
+    inputDisplay.value = inputDisplay.value.slice(0, -1);
 }
 
-function getResult(){
-    // console.log(calculatePostfix(infixToPostfix('1+2-3*2+1.2')));
-    const postfix = infixToPostfix(inputDisplay.value);
+function getResult() {
+    let inputValue = 0 + inputDisplay.value;
+    const lastElementType = getLastElementType(inputValue);
+
+    if (lastElementType === elementType.OPERATOR) {
+        inputValue = inputValue.slice(0, -1);
+    }
+
+    const postfix = infixToPostfix(inputValue);
     const result = calculatePostfix(postfix);
-    
+
     outputDisplay.value = result;
 }
 
-
+// 계산기 로직
 function calculate(operand1, operand2, operator) {
-    operand1 = Number(operand1);
-    operand2 = Number(operand2);
-    switch (operator){
-        case '+' : return operand1 + operand2;
-        case '-' : return operand1 - operand2;
-        case '*' : return operand1 * operand2;
-        case '/' : return operand1 / operand2;
+    operand1 = new Decimal(operand1);
+    operand2 = new Decimal(operand2);
+
+    switch (operator) {
+        case '+': return operand1.plus(operand2);
+        case '-': return operand1.minus(operand2);
+        case '*': return operand1.times(operand2);
+        case '/': return operand1.div(operand2);
     }
 }
 
-// 후위표기법으로 변환
-function infixToPostfix(infix){
+function infixToPostfix(infix) {
     const operatorPrecedence = {
-        '+' : 0, 
-        '-' : 0,
-        '*' : 1,
-        '/' : 1
+        '+': 0,
+        '-': 0,
+        '*': 1,
+        '/': 1
     };
+
     const postfix = [];
     const operatorStack = [];
     const elements = infix.match(/\d+(\.\d+)?|[+\-*/]/g);
 
     elements.forEach(element => {
-        if(isNaN(element)){
-            while(operatorStack.length > 0){
+        if (isNaN(element)) {
+            while (operatorStack.length > 0) {
                 const operatorStackPeek = operatorStack[operatorStack.length - 1];
-                if(operatorPrecedence[element] <= operatorPrecedence[operatorStackPeek]){
+                if (operatorPrecedence[element] <= operatorPrecedence[operatorStackPeek]) {
                     postfix.push(operatorStack.pop());
-                }else{
+                } else {
                     break;
                 }
             }
@@ -99,33 +166,31 @@ function infixToPostfix(infix){
         postfix.push(element);
     });
 
-    while(operatorStack.length > 0){
+    while (operatorStack.length > 0) {
         postfix.push(operatorStack.pop())
     }
-    // console.log(postfix);
+
     return postfix;
 }
-// console.log(infixToPostfix('1+2-3*2+1.2'));
 
-
-function calculatePostfix(postfix){
+function calculatePostfix(postfix) {
     const operandStack = [];
 
-    while(postfix.length > 0){
+    while (postfix.length > 0) {
         const front = postfix[0];
 
-        if(isNaN(front)){
+        if (isNaN(front)) {
             const operand2 = operandStack.pop();
             const operand1 = operandStack.pop();
 
             const value = calculate(operand1, operand2, front);
             operandStack.push(value);
             postfix.shift();
-        }else{
+        } else {
             operandStack.push(postfix.shift());
         }
     }
     const answer = operandStack.pop();
-    
-    return answer;
+
+    return new Decimal(answer);
 }
