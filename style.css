@@ -18,18 +18,21 @@ table{
 
 
 table, tr{
-    /* border: solid 1px #8e8e8e; */
     border-collapse: collapse;  
 }
 
-tbody{text-align: center;}
-tbody tr td{ border: solid 1px #8e8e8e;}
+tbody{
+    text-align: center;
+}
+
+tbody tr td{ 
+    border: solid 1px #8e8e8e;
+}
 
 .calculator {
     width: 412px;
     border-radius: 20px;
     margin: 0 auto;
-
 }
 
 /* 디스플레이 구성 */
@@ -55,10 +58,6 @@ tbody tr td{ border: solid 1px #8e8e8e;}
 }
 
 /* 버튼 구성 */
-.buttons {
-    background: rgb(224, 224, 224);
-    display: grid;
-}
 
 .btn {
     color: rgb(0, 0, 0);
@@ -66,34 +65,19 @@ tbody tr td{ border: solid 1px #8e8e8e;}
     height: 120px;
     font-size: 50px;
     background-color: #e0e0e0;
+    cursor: pointer;
 }
 
-.backspace {
-
-}
-
-.all-clear {
-
-}
-
-.operator {
-    background: rgb(232, 150, 80);
+.btnColor {
+    background: #E89650;
     color: #fff;
 }
-
-.num {
-
+.btn:hover{
+    background-color: #ccc;
 }
 
-.zero {
-
+.btnColor:hover{   
+    background:#ca8345;
 }
 
-.dot {
 
-}
-
-.equals {
-    background: rgb(232, 150, 80);
-    color: #fff;
-}
