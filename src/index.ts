@@ -1,6 +1,13 @@
-import { BrowserOperatorKey, Notation } from "./types/enums.js";
+import { Notation } from "./types/enums.js";
 import { ExpressionManager } from "./classes/expressionManager.js";
-import { ExpressionCharacters } from "./types/types.js";
+import { ExpressionCharacter } from "./types/types.js";
+import {
+  isBackspace,
+  isDigitNumber,
+  isEquals,
+  isOperator,
+  isPoint,
+} from "./utilities.js";
 
 const inputScreen = document.getElementsByClassName("input_screen")[0];
 const outputScreen = document.getElementsByClassName("output_screen")[0];
@@ -57,7 +64,7 @@ function onClickAllClear(event: MouseEvent): void {
 function onClickNumberButton(event: MouseEvent): void {
   const currentElement = event.currentTarget as HTMLElement;
   expressionManager.addCharacter(
-    currentElement.innerHTML as ExpressionCharacters
+    currentElement.innerHTML as ExpressionCharacter
   );
   inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
 }
@@ -65,7 +72,7 @@ function onClickNumberButton(event: MouseEvent): void {
 function onClickPointButton(event: MouseEvent): void {
   const currentElement = event.currentTarget as HTMLElement;
   expressionManager.addCharacter(
-    currentElement.innerHTML as ExpressionCharacters
+    currentElement.innerHTML as ExpressionCharacter
   );
   inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
 }
@@ -76,7 +83,7 @@ function onClickOperatorButton(event: MouseEvent): void {
   if (operator === null) {
     return;
   }
-  expressionManager.addCharacter(operator as ExpressionCharacters);
+  expressionManager.addCharacter(operator as ExpressionCharacter);
   inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
 }
 
@@ -86,20 +93,15 @@ function onClickEquals(event: MouseEvent): void {
 }
 
 function onKeyDownInput(event: KeyboardEvent): void {
-  const isNumber = "0" <= event.key && event.key <= "9";
-  const isOperator = Object.keys(BrowserOperatorKey).includes(event.key);
-  const isPoint = event.key === ".";
-  const isBackspace = event.key === "Backspace";
-  const isEquals = event.key === "=";
-
-  if (isNumber || isOperator || isPoint) {
-    expressionManager.addCharacter(event.key as ExpressionCharacters);
-  } else if (isBackspace) {
+  if (isDigitNumber(event.key) || isOperator(event.key) || isPoint(event.key)) {
+    expressionManager.addCharacter(event.key as ExpressionCharacter);
+  } else if (isBackspace(event.key)) {
     expressionManager.deleteCharacter();
-  }
-  inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
-
-  if (isEquals) {
+  } else if (isEquals(event.key)) {
     // TODO: 구현
+    // outputScreen.innerHTML = calculate();
+    return;
   }
+
+  inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
 }

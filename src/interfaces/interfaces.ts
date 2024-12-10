@@ -1,6 +1,6 @@
-import { ExpressionOperators } from "../types/types.js";
+import { Operator } from "../types/types.js";
 
 export interface Expression {
   operands: string[];
-  operators: ExpressionOperators[];
+  operators: Operator[];
 }
