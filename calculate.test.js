@@ -9,6 +9,6 @@ describe("사칙연산 우선순위 test", () => {
     const result = calculate(expression);
 
     //then
-    expect(result.toString()).toBe("8");
+    expect(result).toBe("8");
   });
 });
