@@ -8,7 +8,7 @@ function initializeCalculator() {
     resultDisplay = document.querySelector('.text-wrapper-5') as HTMLParagraphElement;
     expressionDisplay = document.querySelector('.p') as HTMLParagraphElement;
 
-    document.querySelectorAll('.div-wrapper, .overlap-group, .element-wrapper, .overlap-5, .rectangle').forEach(button => {
+    document.querySelectorAll('.div-wrapper, .overlap-group, .element-wrapper, .overlap-5, .rectangle, .text-wrapper-3').forEach(button => {
         button.addEventListener('click', (e) => {
             const target = e.currentTarget as HTMLElement;
             const value = target.textContent?.trim();
