@@ -106,6 +106,9 @@ function onKeyDownInput(event: KeyboardEvent): void {
 }
 
 function calculateExpression() {
+  expressionManager.trimExpression();
+  inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
+
   const result = calculate(expressionManager.expression);
   if (result === undefined) {
     outputScreen.innerHTML = "";

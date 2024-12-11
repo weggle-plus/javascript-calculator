@@ -64,6 +64,9 @@ export class ExpressionManager implements IExpressionManager {
       this.expression.operators[this.operatorInputPointer] =
         character as Operator;
       this.lastInputCharacter = character;
+
+      this.trimOperand();
+
       return true;
     }
 
@@ -159,5 +162,34 @@ export class ExpressionManager implements IExpressionManager {
     }
 
     return expressionString.trimEnd();
+  }
+
+  trimExpression(): void {
+    if (this.expression.operands.length === 0) {
+      return;
+    }
+
+    if (this.expression.operands.length === this.expression.operators.length) {
+      this.deleteCharacter();
+    }
+  }
+
+  trimOperand(): void {
+    const operandLastCharacter =
+      this.expression.operands[this.operandInputPointer].slice(-1);
+
+    switch (operandLastCharacter) {
+      case ".":
+        this.expression.operands[this.operandInputPointer] =
+          this.expression.operands[this.operandInputPointer].slice(0, -1);
+        break;
+      case "0":
+        this.expression.operands[this.operandInputPointer] =
+          this.expression.operands[this.operandInputPointer].replace(
+            /0+$/g,
+            ""
+          );
+        break;
+    }
   }
 }

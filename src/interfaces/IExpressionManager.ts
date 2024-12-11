@@ -11,4 +11,6 @@ export interface IExpressionManager {
   deleteCharacter(): boolean;
   reset(): void;
   getExpression(notation: Notation): string;
+  trimExpression(): void;
+  trimOperand(): void;
 }

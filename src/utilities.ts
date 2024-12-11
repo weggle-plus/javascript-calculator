@@ -37,7 +37,7 @@ export function isValidNumber(string: string): boolean {
   const floatNumber = parseFloat(string);
   canNumber = !Number.isNaN(floatNumber);
 
-  if (1 < string.split(".").length) {
+  if (2 < string.split(".").length) {
     return false;
   }
 
@@ -45,23 +45,11 @@ export function isValidNumber(string: string): boolean {
 }
 
 export function trimNumber(string: string): string {
-  /**처리 불가능 케이스
-   * 12.30 입력이 안됨.
-   * 3. 오류
-   */
   const intNumber = parseInt(string);
 
   if (!string.includes(".")) {
     return intNumber.toString();
   }
 
-  const floatNumber = parseFloat(string);
-
-  if (intNumber === floatNumber) {
-    return string;
-  }
-
-  return Number.isInteger(floatNumber)
-    ? intNumber.toString()
-    : floatNumber.toString();
+  return string;
 }
