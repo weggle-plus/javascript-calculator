@@ -1,7 +1,6 @@
 let inputDisplay = document.getElementById('display');
 let outputDisplay = document.getElementById('result');
 let buttons = document.querySelectorAll('.buttons button');
-
 const elementType = {
     NUMBER: 1,
     OPERATOR: 2,
@@ -9,10 +8,55 @@ const elementType = {
     EQUALS: 4
 };
 
-buttons.forEach(button => {
-    button.addEventListener('click', function () {
-        const value = this.innerText;
+limitInput(inputDisplay);
 
+buttons.forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        handleInput(e);
+    });
+});
+
+inputDisplay.addEventListener('keydown', function(e){
+    e.preventDefault();
+    handleInput(e);
+});
+
+// 입력제한
+function limitInput(input) {
+    const regex = /^[0-9+\-*./]*$/;
+    input.addEventListener('input',function () {
+        if (!regex.test(this.value)) {
+            this.value = this.value.replace(/[^0-9+\-*./]/g, '');
+        }
+    });
+}
+
+function handleInput(e){
+    let value;
+    
+    if(e.type === 'click'){
+        value = e.target.value;
+    }else if(e.type === 'keydown'){
+        const key = e.key;
+        if(getElementType(key)){
+            value = key;
+        }
+
+        if (key === 'Enter' || key === '=') { //Enter > 결과값 출력(=)
+            value = "="
+        }
+        if (key === 'Backspace') {
+            removeElement();
+            return;
+        }
+        if (key === 'Escape') { //ESC > 전체 삭제(AC)
+            resetDisplay();
+            return;
+        }
+    }
+
+    if(value){
         switch (value) {
             case '=':
                 getAnswerAndDisplay();
@@ -27,40 +71,8 @@ buttons.forEach(button => {
                 addElementToDisplay(value);
                 break;
         }
-    });
-});
-
-// 입력제한
-function limitInput(input) {
-    const regex = /^[0-9+\-*./]*$/;
-    input.onkeyup = function (e) {
-        if (!regex.test(this.value)) {
-            this.value = this.value.replace(/[^0-9+\-*./]/g, '');
-        }
     }
 }
-limitInput(inputDisplay);
-
-inputDisplay.addEventListener("keydown", function (e) {
-    e.preventDefault(); // 브라우저 기본 입력 동작 방지
-
-    const key = e.key;
-    if (getElementType(key)) {
-        addElementToDisplay(key);
-    }
-
-    if (key === 'Enter' || key === '=') { //Enter > 결과값 출력(=)
-        getAnswerAndDisplay();
-    }
-
-    if (key === 'Backspace') {
-        removeElement();
-    }
-
-    if (key === 'Escape') { //ESC > 전체 삭제(AC)
-        resetDisplay();
-    }
-});
 
 // 버튼 (입력) 이벤트
 function addElementToDisplay(element) {
@@ -88,6 +100,7 @@ function calculate(operand1, operand2, operator) {
         case '-': return operand1.minus(operand2);
         case '*': return operand1.times(operand2);
         case '/': return operand1.div(operand2);
+        default: return 0;
     }
 }
 
