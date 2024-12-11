@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./calculator.css">
+</head>
+
+<body>
+  <div id="wrap">
+    <h1>calculator</h1>
+    <div class="calculatorWrap">
+      <div class="displayWrap">
+        <textarea id="display" autofocus></textarea>
+        <input type="text" id="result" disabled>
+      </div>
+      <div class="buttons">
+        <div class="left">
+          <button class="button" value="&lt;">&lt;</button>
+          <button class="button" value="AC">AC</button>
+          <button class="button" value="1">1</button>
+          <button class="button" value="2">2</button>
+          <button class="button" value="3">3</button>
+          <button class="button" value="4">4</button>
+          <button class="button" value="5">5</button>
+          <button class="button" value="6">6</button>
+          <button class="button" value="7">7</button>
+          <button class="button" value="8">8</button>
+          <button class="button" value="9">9</button>
+          <button class="button" value="0">0</button>
+          <button class="button" value=".">.</button>
+        </div>
+        <div class="right">
+          <button class="button" value="+">+</button>
+          <button class="button" value="-">-</button>
+          <button class="button" value="*">x</button>
+          <button class="button" value="/">&divide;</button>
+          <button class="button" value="=">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./libs/decimal.min.js"></script>
+  <script type="module" src="./index.js"></script>
+</body>
+
+</html>
