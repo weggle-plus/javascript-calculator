@@ -1,19 +1,9 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-   
-    "module": "ES6",  
-    "target": "ES6",                              
-
-    "outDir": "./dist",                                  
-  
-    "esModuleInterop": true,                            
-   
-    "forceConsistentCasingInFileNames": true,        
-
-    "strict": true,          
-    "moduleResolution": "node",                        
-    
-    "skipLibCheck": true
-                                  
-  }
+    "rootDir": ".",
+    "outDir": "build",
+    "lib": ["dom", "esnext"]
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

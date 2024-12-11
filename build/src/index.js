@@ -1,23 +1,27 @@
-import { Operator, Token } from './types/types';
-import { OPERATOR, OPERATOR_PRIORITY } from './types/constants';
-
-export function tokenizer(input: string): Token[] {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tokenizer = tokenizer;
+exports.infixToPostfix = infixToPostfix;
+exports.calculatePostfix = calculatePostfix;
+const constants_js_1 = require("./types/constants.js");
+function tokenizer(input) {
     let currentNumber = '';
-    const tokens: Token[] = [];
+    const tokens = [];
     [...input].map(char => {
         if (char === ' ') {
             return;
         }
-        if (!OPERATOR.includes(char) && isNaN(Number(char)) && char !== '.') {
+        if (!constants_js_1.OPERATOR.includes(char) && isNaN(Number(char)) && char !== '.') {
             return;
         }
-        if (OPERATOR.includes(char)) {
+        if (constants_js_1.OPERATOR.includes(char)) {
             if (currentNumber !== '') {
                 tokens.push(Number(currentNumber));
                 currentNumber = '';
             }
-            tokens.push(char as Operator);
-        } else {
+            tokens.push(char);
+        }
+        else {
             if (char === '.' && currentNumber.includes('.')) {
                 throw new Error('잘못된 소수 입력입니다.');
             }
@@ -30,36 +34,33 @@ export function tokenizer(input: string): Token[] {
     }
     return tokens;
 }
-
-export function infixToPostfix(tokens: Token[]): Token[] {
-    const postfix: Token[] = [];
-    const operators: Operator[] = [];
-
+function infixToPostfix(tokens) {
+    const postfix = [];
+    const operators = [];
     tokens.map(token => {
         if (typeof token === 'number') {
             postfix.push(token);
-        } else {
-            while (
-                operators.length > 0 &&
-                OPERATOR_PRIORITY[token] <=
-                OPERATOR_PRIORITY[operators[operators.length - 1]]
-            ) {
-                postfix.push(operators.pop()! as Token);
+        }
+        else {
+            while (operators.length > 0 &&
+                constants_js_1.OPERATOR_PRIORITY[token] <=
+                    constants_js_1.OPERATOR_PRIORITY[operators[operators.length - 1]]) {
+                postfix.push(operators.pop());
             }
             operators.push(token);
         }
     });
     while (operators.length > 0) {
-        postfix.push(operators.pop()! as Token);
+        postfix.push(operators.pop());
     }
     return postfix;
 }
-
-export function calculatePostfix(postfix: Token[]): number {
-    const result = postfix.reduce((stack: number[], cur: Token): number[] => {
+function calculatePostfix(postfix) {
+    const result = postfix.reduce((stack, cur) => {
         if (!isNaN(Number(cur))) {
             stack.push(Number(cur));
-        } else {
+        }
+        else {
             const secondNumber = stack.pop();
             const firstNumber = stack.pop();
             if (firstNumber === undefined || secondNumber === undefined) {
@@ -84,10 +85,10 @@ export function calculatePostfix(postfix: Token[]): number {
             }
         }
         return stack;
-    }, [] as number[]);
-
+    }, []);
     if (result.length !== 1) {
         throw new Error('후위 표기식 계산 결과가 올바르지 않습니다.');
     }
     return parseFloat(result[0].toFixed(11));
 }
+//# sourceMappingURL=index.js.map
