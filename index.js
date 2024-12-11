@@ -1,9 +1,9 @@
-const {
+import {
     elementType,
     getAnswer,
     getLastElementType,
     getElementType,
-} = require('./calculator');
+} from'./calculator.js';
 
 let inputDisplay = document.getElementById('display');
 let outputDisplay = document.getElementById('result');

@@ -1,4 +1,4 @@
-const elementType = {
+export const elementType = {
     NUMBER: 1,
     OPERATOR: 2,
     DECIMALPOINT: 3,
@@ -78,7 +78,7 @@ function calculatePostfix(postfix) {
     return new Decimal(answer);
 }
 
-function getAnswer(inputValue) {
+export function getAnswer(inputValue) {
     const lastElementType = getLastElementType(inputValue);
 
     if (lastElementType === elementType.OPERATOR) {
@@ -92,7 +92,7 @@ function getAnswer(inputValue) {
 }
 
 // 마지막 요소 타입 처리
-function getLastElementType(inputValue) {
+export function getLastElementType(inputValue) {
     const inputValueLength = inputValue.length;
     if (inputValueLength) {
         const lastElement = inputValue[inputValueLength - 1];
@@ -104,7 +104,7 @@ function getLastElementType(inputValue) {
 }
 
 // 요소 타입 처리
-function getElementType(element) {
+export function getElementType(element) {
     const validNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const operators = ['+', '-', '/', '*'];
 
@@ -121,11 +121,4 @@ function getElementType(element) {
     }
 
     return undefined;
-}
-
-module.exports = {
-    elementType,
-    getAnswer,
-    getLastElementType,
-    getElementType
 }
