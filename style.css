@@ -1,0 +1,83 @@
+/* 레이아웃 */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fff;
+    padding: 30px;
+}
+
+table{
+    border-collapse: collapse;
+    border-radius: 20px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px #8e8e8e;
+}
+
+
+table, tr{
+    border-collapse: collapse;  
+}
+
+tbody{
+    text-align: center;
+}
+
+tbody tr td{ 
+    border: solid 1px #8e8e8e;
+}
+
+.calculator {
+    width: 412px;
+    border-radius: 20px;
+    margin: 0 auto; 
+}
+
+/* 디스플레이 구성 */
+.display {
+    background: rgb(65, 60, 60);
+    color: #fff;
+    height: 184px;
+    text-align: right;
+}
+
+.display tr{border: none !important;}
+
+.formula {
+    height: 50%;
+    font-size: 30px;
+    padding:  0 20px;
+}
+
+.result {
+    height: 50%;
+    font-size: 50px;
+    padding:  0 20px;
+}
+
+/* 버튼 구성 */
+
+.btn {
+    color: rgb(0, 0, 0);
+    width: 103px; 
+    height: 120px;
+    font-size: 50px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.btnColor {
+    background: #E89650;
+    color: #fff;
+}
+.btn:hover{
+    background-color: #ccc;
+}
+
+.btnColor:hover{   
+    background:#ca8345;
+}
+
+

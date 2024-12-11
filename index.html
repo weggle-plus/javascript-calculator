@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>계산기</title>
+</head>
+<body>
+    <section class="calculator">
+        <table>
+            <thead class="display">
+                <tr>
+                    <td colspan="4" class="formula" style="border-radius: 20px 20px 0 0;"></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="result">0</td>
+                </tr>   
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="btn">
+                        <div class="backspace" data-value="back">&lt;</div>
+                    </td>
+
+                    <td class="btn" colspan="2">
+                        <div class="all-clear" data-value="clear">AC</div>
+                    </td>
+
+                    <td class="btn btnColor">
+                        <div class="operator" data-value="/">&divide;</div>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td class="btn"> 
+                        <div class="num" data-value="7">7</div>
+                    </td>
+
+                    <td class="btn"> 
+                        <div class="num" data-value="8">8</div>
+                    </td>
+
+                    <td class="btn"> 
+                        <div class="num" data-value="9">9</div>
+                    </td>
+
+                    <td class="btn btnColor">   
+                        <div class="operator" data-value="*">&times;</div>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td class="btn">
+                        <div class="num" data-value="4">4</div>
+                    </td>
+
+                    <td class="btn"> 
+                        <div class="num" data-value="5">5</div>
+                    </td>
+
+                    <td class="btn">  
+                        <div class="num" data-value="6">6</div>
+                    </td>
+
+                    <td class="btn btnColor"> 
+                        <div class="operator" data-value="-">-</div>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td class="btn"> 
+                        <div class="num" data-value="1">1</div>
+                    </td>
+
+                    <td class="btn">  
+                        <div class="num" data-value="2">2</div>
+                    </td>
+
+                    <td class="btn"> 
+                        <div class="num" data-value="3">3</div>
+                    </td>
+
+                    <td class="btn btnColor">  
+                        <div class="operator" data-value="+">+</div>
+                    </td>
+                </tr>    
+    
+                
+                <tr>
+                    <td class="btn" colspan="2" style="border-radius: 0 0 0 20px;">
+                        <div class="zero" data-value="0">0</div>
+                    </td>
+
+                    <td class="btn">  
+                        <div class="dot" data-value=".">.</div>
+                    </td>
+
+                    <td class="btn btnColor" style="border-radius: 0 0 20px 0;">
+                        <div class="equals" data-value="=">=</div>
+                    </td> 
+                </tr>   
+            </tbody>
+
+        </table>
+    </section>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
