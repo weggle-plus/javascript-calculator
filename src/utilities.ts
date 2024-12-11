@@ -1,4 +1,4 @@
-import { OperatorValues } from "./types/types.js";
+import { Operator, OperatorValues } from "./types/types.js";
 
 export function isPoint(character: string): boolean {
   return character === ".";
@@ -28,9 +28,7 @@ export function isOperator(character: string): boolean {
     return false;
   }
 
-  const operators = Object.keys(OperatorValues);
-
-  return operators.includes(character);
+  return OperatorValues.includes(character as Operator);
 }
 
 export function isValidNumber(string: string): boolean {
