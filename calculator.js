@@ -1,5 +1,6 @@
 let inputDisplay = document.getElementById('display');
 let outputDisplay = document.getElementById('result');
+let buttons = document.querySelectorAll('.buttons button');
 
 const elementType = {
     NUMBER: 1,
@@ -7,6 +8,27 @@ const elementType = {
     DECIMALPOINT: 3,
     EQUALS: 4
 };
+
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        const value = this.innerText; 
+
+        switch (value) {
+            case '=':
+                getResult();
+                break;
+            case 'AC':
+                resetDisplay();
+                break;
+            case '<':
+                removeElement();
+                break;
+            default:
+                addElementToDisplay(value);
+                break;
+        }
+    });
+});
 
 // 입력제한
 function limitInput(input) {
