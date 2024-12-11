@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js/decimal.js';
 export const elementType = {
     NUMBER: 1,
     OPERATOR: 2,
