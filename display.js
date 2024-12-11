@@ -1,15 +1,7 @@
-// import { handleButtonClick, } from "./app.js"
+const displayFormula = document.querySelector(".calculator .formula");
+const displayResult = document.querySelector(".calculator .result");
 
-const button = document.querySelector(".calculator.btn");
-const display = document.querySelector(".calculator.display");
-
-
-let formulaDisplay = "";
-let resultDisplay = "";
-
-export const currentDisplay = (formulaDisplay, resultDisplay) => {
-    formula.textContent = formulaDisplay || "0";
-    result.textContent =  resultDisplay || "0";
+export const currentDisplay = (formula, result) => {
+    displayFormula.textContent = formula || "0";
+    displayResult.textContent = result || "0";
 };
-
-export { formulaDisplay, resultDisplay };
