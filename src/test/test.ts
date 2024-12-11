@@ -1,5 +1,5 @@
-import { tokenizer, infixToPostfix, calculatePostfix } from '../index';
-import { Token } from '../types/types';
+import {tokenizer, infixToPostfix, calculatePostfix} from '../index.js';
+import {Token} from '../types/types.js';
 
 describe('tokenizer function', () => {
   it('should tokenize a simple arithmetic expression', () => {
