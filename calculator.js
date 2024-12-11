@@ -167,7 +167,7 @@ function getAnswerAndDisplay() {
     let inputValue = 0 + inputDisplay.value;
     const answer = getAnswer(inputValue);
 
-    outputDisplay.validNumbers = answer;
+    outputDisplay.value = answer;
 }
 
 function getAnswer(inputValue) {
