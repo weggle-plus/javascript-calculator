@@ -143,10 +143,11 @@ export class ExpressionManager implements IExpressionManager {
         expressionString = this.expression.operands.reduce(
           (infixExpression, operand) => {
             if (operand !== undefined) {
-              infixExpression += operand;
+              infixExpression += operand + " ";
             }
             if (this.expression.operators[operatorIndex] !== undefined) {
-              infixExpression += this.expression.operators[operatorIndex++];
+              infixExpression +=
+                this.expression.operators[operatorIndex++] + " ";
             }
             return infixExpression;
           },
@@ -157,6 +158,6 @@ export class ExpressionManager implements IExpressionManager {
         break;
     }
 
-    return expressionString;
+    return expressionString.trimEnd();
   }
 }
