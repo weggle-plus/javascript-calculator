@@ -1,8 +1,8 @@
 export const elementType = {
-    NUMBER: 1,
-    OPERATOR: 2,
-    DECIMALPOINT: 3,
-    EQUALS: 4
+    NUMBER: 'NUMBER',
+    OPERATOR: 'OPERATOR',
+    DECIMALPOINT: 'DECIMALPOINT',
+    EQUALS: 'EQAULS'
 };
 
 // 계산기 로직
