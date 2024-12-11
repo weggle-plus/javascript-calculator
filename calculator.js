@@ -23,7 +23,7 @@ inputDisplay.addEventListener("keydown", function (e) {
     e.preventDefault(); // 브라우저 기본 입력 동작 방지
 
     const key = e.key;
-    if (getElementType(key) !== undefined) {
+    if (getElementType(key)) {
         addElementToDisplay(key);
     }
 
