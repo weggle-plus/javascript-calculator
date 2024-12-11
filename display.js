@@ -1,7 +1,8 @@
-import { handleButtonClick, } from ".app.js"
+// import { handleButtonClick, } from "./app.js"
 
-const button = document.querySelector("/.calculator.btn");
-const display = document.querySelector("/.calculator.display");
+const button = document.querySelector(".calculator.btn");
+const display = document.querySelector(".calculator.display");
+
 
 let formulaDisplay = "";
 let resultDisplay = "";
