@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js/decimal.js';
 export const elementType = {
     NUMBER: 1,
     OPERATOR: 2,
@@ -76,7 +75,7 @@ function calculatePostfix(postfix) {
     }
     const answer = operandStack.pop();
 
-    return new Decimal(answer);
+    return Number(answer);
 }
 
 export function getAnswer(inputValue) {

@@ -3,7 +3,7 @@ import {
     getAnswer,
     getLastElementType,
     getElementType,
-} from'./calculator.js';
+} from './calculator.js';
 
 let inputDisplay = document.getElementById('display');
 let outputDisplay = document.getElementById('result');

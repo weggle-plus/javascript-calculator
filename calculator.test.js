@@ -1,5 +1,8 @@
-import { getAnswer } from './calculator.js'
+import { getAnswer } from './calculator.js';
+import Decimal from 'decimal.js-light';
 
-test('2+3x4/2=8', () =>{
-    expect(getAnswer('2+3x4/2')).toBe(8);
+global.Decimal = Decimal;
+
+test('2+3*4/2=8', () => {
+    expect(getAnswer('2+3*4/2')).toBe(8);
 });
