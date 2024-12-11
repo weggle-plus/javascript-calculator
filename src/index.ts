@@ -8,6 +8,7 @@ import {
   isOperator,
   isPoint,
 } from "./utilities.js";
+import { calculate } from "./calculator.js";
 
 const inputScreen = document.getElementsByClassName("input_screen")[0];
 const outputScreen = document.getElementsByClassName("output_screen")[0];
@@ -88,8 +89,7 @@ function onClickOperatorButton(event: MouseEvent): void {
 }
 
 function onClickEquals(event: MouseEvent): void {
-  // TODO: 구현
-  // outputScreen.innerHTML = calculate();
+  calculateExpression();
 }
 
 function onKeyDownInput(event: KeyboardEvent): void {
@@ -98,10 +98,20 @@ function onKeyDownInput(event: KeyboardEvent): void {
   } else if (isBackspace(event.key)) {
     expressionManager.deleteCharacter();
   } else if (isEquals(event.key)) {
-    // TODO: 구현
-    // outputScreen.innerHTML = calculate();
+    calculateExpression();
     return;
   }
 
   inputScreen.innerHTML = expressionManager.getExpression(Notation.Infix);
+}
+
+function calculateExpression() {
+  const result = calculate(expressionManager.expression);
+  if (result === undefined) {
+    outputScreen.innerHTML = "";
+    return;
+  }
+  outputScreen.innerHTML = Number.isInteger(result)
+    ? result.toString()
+    : result.toFixed(2);
 }
