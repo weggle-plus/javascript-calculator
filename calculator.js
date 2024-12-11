@@ -10,12 +10,12 @@ const elementType = {
 };
 
 buttons.forEach(button => {
-    button.addEventListener('click', function() {
-        const value = this.innerText; 
+    button.addEventListener('click', function () {
+        const value = this.innerText;
 
         switch (value) {
             case '=':
-                getResult();
+                getAnswerAndDisplay();
                 break;
             case 'AC':
                 resetDisplay();
@@ -50,7 +50,7 @@ inputDisplay.addEventListener("keydown", function (e) {
     }
 
     if (key === 'Enter' || key === '=') { //Enter > 결과값 출력(=)
-        getResult();
+        getAnswerAndDisplay();
     }
 
     if (key === 'Backspace') {
@@ -150,8 +150,14 @@ function calculatePostfix(postfix) {
     return new Decimal(answer);
 }
 
-function getResult() {
+function getAnswerAndDisplay() {
     let inputValue = 0 + inputDisplay.value;
+    const answer = getAnswer(inputValue);
+
+    outputDisplay.validNumbers = answer;
+}
+
+function getAnswer(inputValue) {
     const lastElementType = getLastElementType(inputValue);
 
     if (lastElementType === elementType.OPERATOR) {
@@ -161,7 +167,7 @@ function getResult() {
     const postfix = infixToPostfix(inputValue);
     const result = calculatePostfix(postfix);
 
-    outputDisplay.value = result;
+    return result;
 }
 
 function resetDisplay() {
@@ -247,3 +253,4 @@ function getElementType(element) {
     return undefined;
 }
 
+module.exports = { getAnswer };
